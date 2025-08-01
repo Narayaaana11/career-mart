@@ -2,7 +2,7 @@ import axios from 'axios';
 
 // Create axios instance with default configuration
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api',
+  baseURL: import.meta.env.VITE_API_URL || 'http://localhost:5000',
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
@@ -42,7 +42,7 @@ export const scrapingAPI = {
   getInfo: async () => {
     console.log('🔍 Calling getInfo API...');
     try {
-      const response = await api.get('/scrape-jobs');
+      const response = await api.get('/api/scrape-jobs');
       console.log('✅ getInfo API response:', response.data);
       return response.data;
     } catch (error) {
@@ -61,7 +61,7 @@ export const scrapingAPI = {
   }) => {
     console.log('🔍 Calling scrapeSingleUrl API with params:', params);
     try {
-      const response = await api.post('/scrape-jobs', params);
+      const response = await api.post('/api/scrape-jobs', params);
       console.log('✅ scrapeSingleUrl API response:', response.data);
       return response.data;
     } catch (error) {
@@ -80,7 +80,7 @@ export const scrapingAPI = {
   }) => {
     console.log('🔍 Calling scrapeBulkUrls API with params:', params);
     try {
-      const response = await api.post('/scrape-jobs/bulk-urls', params);
+      const response = await api.post('/api/scrape-jobs/bulk-urls', params);
       console.log('✅ scrapeBulkUrls API response:', response.data);
       return response.data;
     } catch (error) {
@@ -93,7 +93,7 @@ export const scrapingAPI = {
   getStatus: async () => {
     console.log('🔍 Calling getStatus API...');
     try {
-      const response = await api.get('/scrape-jobs/status');
+      const response = await api.get('/api/scrape-jobs/status');
       console.log('✅ getStatus API response:', response.data);
       return response.data;
     } catch (error) {
@@ -142,49 +142,49 @@ export const companyAPI = {
     sortBy?: string;
     sortOrder?: 'asc' | 'desc';
   }) => {
-    const response = await api.get('/companies', { params });
+    const response = await api.get('/api/companies', { params });
     return response.data;
   },
 
   // Get company by ID
   getCompany: async (id: string) => {
-    const response = await api.get(`/companies/${id}`);
+    const response = await api.get(`/api/companies/${id}`);
     return response.data;
   },
 
   // Get companies by industry
   getCompaniesByIndustry: async (industry: string) => {
-    const response = await api.get(`/companies/industry/${industry}`);
+    const response = await api.get(`/api/companies/industry/${industry}`);
     return response.data;
   },
 
   // Get featured companies
   getFeaturedCompanies: async () => {
-    const response = await api.get('/companies/featured/all');
+    const response = await api.get('/api/companies/featured/all');
     return response.data;
   },
 
   // Get company statistics
   getCompanyStats: async () => {
-    const response = await api.get('/companies/stats/overview');
+    const response = await api.get('/api/companies/stats/overview');
     return response.data;
   },
 
   // Create new company (admin only)
   createCompany: async (companyData: any) => {
-    const response = await api.post('/companies', companyData);
+    const response = await api.post('/api/companies', companyData);
     return response.data;
   },
 
   // Update company (admin only)
   updateCompany: async (id: string, companyData: any) => {
-    const response = await api.put(`/companies/${id}`, companyData);
+    const response = await api.put(`/api/companies/${id}`, companyData);
     return response.data;
   },
 
   // Delete company (admin only)
   deleteCompany: async (id: string) => {
-    const response = await api.delete(`/companies/${id}`);
+    const response = await api.delete(`/api/companies/${id}`);
     return response.data;
   }
 };
@@ -201,7 +201,7 @@ export const jobsAPI = {
   }) => {
     console.log('🔍 Calling getJobs API with params:', params);
     try {
-      const response = await api.get('/jobs', { params });
+      const response = await api.get('/api/jobs', { params });
       console.log('✅ getJobs API response:', response.data);
       return response.data;
     } catch (error) {
@@ -214,7 +214,7 @@ export const jobsAPI = {
   getJob: async (id: string) => {
     console.log('🔍 Calling getJob API with id:', id);
     try {
-      const response = await api.get(`/jobs/${id}`);
+      const response = await api.get(`/api/jobs/${id}`);
       console.log('✅ getJob API response:', response.data);
       return response.data;
     } catch (error) {
@@ -227,7 +227,7 @@ export const jobsAPI = {
   createJob: async (jobData: any) => {
     console.log('🔍 Calling createJob API with data:', jobData);
     try {
-      const response = await api.post('/jobs', jobData);
+      const response = await api.post('/api/jobs', jobData);
       console.log('✅ createJob API response:', response.data);
       return response.data;
     } catch (error) {
@@ -240,7 +240,7 @@ export const jobsAPI = {
   updateJob: async (id: string, jobData: any) => {
     console.log('🔍 Calling updateJob API with id:', id, 'data:', jobData);
     try {
-      const response = await api.put(`/jobs/${id}`, jobData);
+      const response = await api.put(`/api/jobs/${id}`, jobData);
       console.log('✅ updateJob API response:', response.data);
       return response.data;
     } catch (error) {
@@ -253,7 +253,7 @@ export const jobsAPI = {
   deleteJob: async (id: string) => {
     console.log('🔍 Calling deleteJob API with id:', id);
     try {
-      const response = await api.delete(`/jobs/${id}`);
+      const response = await api.delete(`/api/jobs/${id}`);
       console.log('✅ deleteJob API response:', response.data);
       return response.data;
     } catch (error) {
